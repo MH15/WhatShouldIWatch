@@ -17,7 +17,7 @@
     "vision": "^5.4.4"
   },
   "scripts": {
-    "start": "node main.js"
+    "start": "NODE_ENV='production' node main.js"
   },
   "engines": {
     "node": "8.11.2"
