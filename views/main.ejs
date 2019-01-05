@@ -3,21 +3,22 @@
 <head>
 
 <title><%=title%></title>
-
+<link rel="stylesheet" href="/public/css/main.css">
 
 </head>
 
 <body>
-	<h1><%=title%></h1>
+	<div class="container">
+		<h1><%=title%></h1>
 
-	<% rated.forEach((film) => { %>
-    	<%- include('card', {film: film}); %>
-  	<% }); %>
-  	<hr>
-  	Sadly we couldn't find any data on the films below
-  	<% unrated.forEach((film) => { %>
-    	<%- include('card', {film: film}); %>
-  	<% }); %>
+		<% rated.forEach((film) => { %>
+	    	<%- include('card', {film: film}); %>
+	  	<% }); %>
+	  	<hr>
+	  	Sadly we couldn't find any data on the films below
+	  	<% unrated.forEach((film) => { %>
+	    	<%- include('card', {film: film}); %>
+	  	<% }); %>
 
-
+	</div>
 </body>

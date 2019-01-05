@@ -8,10 +8,14 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "findango-api": "^1.0.0",
+    "gulp": "^4.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-sass": "^4.0.2",
     "hapi": "^17.8.1",
     "hapi-geo-locate": "^3.1.0",
     "hapi-ip-location": "^1.0.0",
     "imdb-api": "^4.0.2",
+    "inert": "^5.1.2",
     "omdb": "^0.8.0",
     "request": "^2.88.0",
     "vision": "^5.4.4"

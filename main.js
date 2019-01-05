@@ -33,12 +33,28 @@ const init = async () => {
 	    plugin: require('hapi-geo-locate')
 	})
 	await server.register(Vision);
+	
+	await server.register([
+		require('inert'),
+	])
 
 	server.views({
         engines: { ejs: Ejs },
         relativeTo: __dirname,
         path: 'views'
     });
+
+    server.route({
+	    path: "/public/{path*}",
+	    method: "GET",
+	    handler: {
+	        directory: {
+	            path: "./public",
+	            listing: false,
+	            index: false
+	        }
+	    }
+	});
 
 
 
