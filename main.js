@@ -60,7 +60,7 @@ server.route({
     handler: async (request, h) => {
     	const location = request.location
     	console.log("Location")
-    	console.log(Location)
+    	console.log(location)
     	const films = await FindangoData()
     	const scored = await Score(films)
 
