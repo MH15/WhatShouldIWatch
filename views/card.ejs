@@ -1,0 +1,10 @@
+<div class="card">
+	<!-- <%-JSON.stringify(film)%> -->
+	<h2><%=film.Title%></h2>
+	<p><%=film.Plot%></p>
+	<div>
+		<span>IMDB Rating: <%-String(film.IMDB_rating)%></span> | 
+		<span>IMDB Votes: <%=film.IMDB_votes%> ratings</span> | 
+		<span>Metacritic: <%=film.Metacritic%>%</span>
+	</div>
+</div>

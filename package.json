@@ -1,0 +1,22 @@
+{
+  "name": "whatshouldiwatch",
+  "version": "1.0.0",
+  "description": "A website that tells you what movie to see in theaters",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Hall",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "findango-api": "^1.0.0",
+    "hapi": "^17.8.1",
+    "hapi-geo-locate": "^3.1.0",
+    "hapi-ip-location": "^1.0.0",
+    "imdb-api": "^4.0.2",
+    "omdb": "^0.8.0",
+    "request": "^2.88.0",
+    "vision": "^5.4.4"
+  }
+}
