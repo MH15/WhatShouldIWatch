@@ -2,23 +2,36 @@
 
 <head>
 
-<title><%=title%></title>
-<link rel="stylesheet" href="/public/css/main.css">
+
+<%- include('meta') %>
 
 </head>
 
 <body>
 	<div class="container">
-		<h1><%=title%></h1>
-
+		<header>
+		<!-- <div class="title"> -->
+			<h1><%=title%></h1>
+		<!-- </div> -->
+		<h3 class="menu">
+			<a id="OPEN_ABOUT">about</a>
+		</h3>
+		</header>
 		<% rated.forEach((film) => { %>
 	    	<%- include('card', {film: film}); %>
 	  	<% }); %>
-	  	<hr>
-	  	Sadly we couldn't find any data on the films below
-	  	<% unrated.forEach((film) => { %>
-	    	<%- include('card', {film: film}); %>
-	  	<% }); %>
+
 
 	</div>
+
+	<div class="popups disabled" id="ABOUT">
+		
+		<%-include('about')%>
+
+		<div class="close disabled" id="CLOSE_ABOUT">
+		</div>
+	</div>
+
+
+	<script src="/public/js/ui.js"></script>
 </body>

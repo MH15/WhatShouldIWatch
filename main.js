@@ -33,7 +33,7 @@ const init = async () => {
 	    plugin: require('hapi-geo-locate')
 	})
 	await server.register(Vision);
-	
+
 	await server.register([
 		require('inert'),
 	])
@@ -157,6 +157,7 @@ async function Score(films) {
 				IMDB_rating: omdb_data.imdbRating,
 				IMDB_votes: omdb_data.imdbVotes,
 				Metacritic: omdb_data.Metascore,
+				IMDB_ID: omdb_data.imdbID,
 
 				Poster: omdb_data.Poster,
 				Plot: omdb_data.Plot

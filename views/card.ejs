@@ -1,11 +1,19 @@
 <div class="card">
+	<div class="image">
+		<img src="<%=film.Poster%>">
+	</div>
 	<div class="text">
 		<h2><%=film.Title%></h2>
-		<p><%=film.Plot%></p>
+			
+		<a class="score" href="https://www.imdb.com/title/<%=film.IMDB_ID%>">
+			<img class="imdb" src="/public/img/imdb.svg">
+			<div><%-String(film.IMDB_rating)%>/10</div>
+		</a>
+		<p class="info"><%=film.Plot%></p>
 		<div>
 		</div>
 	</div>
-	<div class="score">
+<!-- 	<div class="score">
 		<div>
 			<p class="label">IMDB Rating</p>
 			<p><%-String(film.IMDB_rating)%>/10</p>
@@ -18,5 +26,5 @@
 			<p class="label">Metacritic</p>
 			<p><%-String(film.Metacritic)%>%</p>
 		</div>
-	</div>
+	</div> -->
 </div>
