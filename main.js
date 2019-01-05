@@ -7,8 +7,7 @@ const Vision = require('vision')
 const Ejs = require('ejs')
 
 const server = Hapi.server({
-    port: process.env.PORT || 3000,
-    host: 'localhost'
+    port: process.env.PORT || 3000
 });
 
 
