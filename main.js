@@ -59,16 +59,12 @@ server.route({
     path: '/',
     handler: async (request, h) => {
     	const location = request.location
+    	console.log("Location")
+    	console.log(Location)
     	const films = await FindangoData()
-
     	const scored = await Score(films)
-    	// console.log(scored)
 
     	// move "N/A" ratings to the end of the list
-		scored.sort((a, b) => {
-    		return Number(b.IMDB_rating) - Number(a.IMDB_rating)
-    	})
-
     	let rated = [], unrated = []
     	scored.forEach(film => {
     		if (film.IMDB_rating != "N/A") {
@@ -77,17 +73,13 @@ server.route({
     			unrated.push(film)
     		}
     	})
-
+    	// sort by IMDB score
     	rated.sort((a, b) => {
     		return Number(b.IMDB_rating) - Number(a.IMDB_rating)
     	})
 
-    	console.log("yeeeeeeeeeet")
-    	// console.log(scored)
-    	// console.log(scored)
-
         return h.view('main', {
-        	title: "yeet",
+        	title: "What Should I Watch?",
         	rated: rated,
         	unrated: unrated
         })
@@ -120,8 +112,7 @@ async function processArray(array) {
 	// map array to promises
 	const promises = array.map(delayedLog);
 	// wait until all promises are resolved
-	await Promise.all(promises);
-	console.log('Done!');
+	await Promise.all(promises)
 }
 
 // Create object including IMBD score
@@ -150,7 +141,7 @@ async function Score(films) {
 	// wait until all promises are resolved
 	await Promise.all(promises);
 
-	console.log(out.length + " movies were retrieved from OMDB")
+	// console.log(out.length + " movies were retrieved from OMDB")
 	return out
 
 }
