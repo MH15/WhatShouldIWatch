@@ -61,7 +61,8 @@ server.route({
     	const location = request.location
     	console.log("Location")
     	console.log(location)
-    	const films = await FindangoData()
+    	// TODO: error handle location data
+    	const films = await FindangoData(location.postal)
     	const scored = await Score(films)
 
     	// move "N/A" ratings to the end of the list
@@ -88,10 +89,10 @@ server.route({
 
 
 // Gather a list of films playing in the area
-function FindangoData() { 
+function FindangoData(postal) { 
 	return new Promise(resolve => {
 		Findango.find({
-		  zipCode: '45459'
+		  zipCode: postal
 		}).then(theatres => {
 		  // Theatres have the format:
 		  // {
