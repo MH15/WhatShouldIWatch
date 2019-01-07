@@ -158,32 +158,38 @@ async function Score(films) {
 	let out = []
 
 	const promises = films.map(async (film) => {
-		let data = await GetOMDB(film.title)
-		// console.log(data)
-		// console.log(omdb_data.imdbRating)
-		if (data.Title) {
-			let obj = {
-				Title: film.title,
-				Fandango_URL: film.url,
-				Film_URL: data.website,
-				IMDB_rating: data.imdbRating,
-				IMDB_votes: data.imdbVotes,
-				Metacritic: data.Metascore,
-				IMDB_ID: data.imdbID,
+		try {
+			let data = await GetOMDB(film.title).catch(error => console.log(error));
+			// console.log(data)
+			// console.log(omdb_data.imdbRating)
+			if (data.Title) {
+				let obj = {
+					Title: film.title,
+					Fandango_URL: film.url,
+					Film_URL: data.website,
+					IMDB_rating: data.imdbRating,
+					IMDB_votes: data.imdbVotes,
+					Metacritic: data.Metascore,
+					IMDB_ID: data.imdbID,
 
-				Poster: data.Poster,
-				Plot: data.Plot,
+					Poster: data.Poster,
+					Plot: data.Plot,
 
 
-				Actors: data.Actors,
-				Writer: data.Writer,
-				Released: data.Released,
-				Runtime: data.Runtime,
+					Actors: data.Actors,
+					Writer: data.Writer,
+					Released: data.Released,
+					Runtime: data.Runtime,
 
+				}
+				// console.log(obj)
+				out.push(obj)
 			}
-			// console.log(obj)
-			out.push(obj)
+		} catch(e) {
+			console.log("failed to get data for this film")
+
 		}
+
 	});
 	// wait until all promises are resolved
 	await Promise.all(promises);
@@ -200,7 +206,12 @@ function GetOMDB(title) {
 		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, function (error, response, body) {
 			// TODO: error handling!
 			console.log("TITLE: " + title)
-			resolve(JSON.parse(body))
+			let json = null
+			if (IsJsonString(body)) {
+				resolve(JSON.parse(body))
+			} else {
+				reject('invalid json format')
+			}
 		});
 	})
 }
@@ -209,3 +220,11 @@ function GetOMDB(title) {
 
 
 
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
