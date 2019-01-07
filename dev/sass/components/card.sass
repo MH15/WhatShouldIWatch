@@ -2,14 +2,15 @@
 .card
 	margin-bottom: $card-border-radius * 2
 	border-radius: $card-border-radius
-	height: $card-height
+	max-height: $card-height
 	background: $card-background
 
 	// display: flex
 	max-width: 100%
 	width: 70vw
-	transition: 300ms ease all
+	// transition: 300ms ease all
 	overflow: hidden
+	transition: max-height 0.25s ease
 	
 	.main
 		width: 100%
@@ -73,6 +74,7 @@
 		width: 100%
 		color: lighten($card-info-color, 10%)
 		padding: $card-padding
+		padding-top: 0
 
 		display: block
 		.fact
@@ -81,9 +83,12 @@
 		// display: flex
 
 .card.expanded
-	height: 355px
+	// height: 355px
+	max-height: 500px
 	// position: fixed
 	top: 20vh
+	transition: max-height 0.5s ease
+	
 
 
 
@@ -120,4 +125,5 @@
 		line-height: 1.5
 	a:visited
 		color: #667da8
+
 

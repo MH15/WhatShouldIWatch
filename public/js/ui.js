@@ -37,9 +37,34 @@ console.log(dom)
 
 function ToggleAboutMenu() {
 	console.log("yeet")
-	// when press, close menu
-	dom.CLOSE_ABOUT.classList.toggle("disabled")
-	dom.ABOUT.classList.toggle("disabled")
+	if (dom.CLOSE_ABOUT.style.opacity == 0) {
+		console.log("opme")
+		dom.CLOSE_ABOUT.style.display = "flex"
+		dom.ABOUT.style.display = "flex"
+		// dom.CLOSE_ABOUT.style.opacity = 1
+		// dom.ABOUT.style.opacity = 1
+
+		setTimeout(() => {
+			dom.CLOSE_ABOUT.style.opacity = 1
+			dom.ABOUT.style.opacity = 1
+		}, 10)
+	} else {
+		console.log("opme1")
+		dom.CLOSE_ABOUT.style.opacity = 0
+		dom.ABOUT.style.opacity = 0
+		setTimeout(() => {
+			dom.CLOSE_ABOUT.style.display = "none"
+			dom.ABOUT.style.display = "none"
+		}, 1000)
+	}
+
+	// // when press, close menu
+	// dom.CLOSE_ABOUT.classList.toggle('disabled')
+	// dom.ABOUT.classList.toggle('disabled')
+
+	// if (dom.CLOSE_ABOUT.classList.contains('disabled')) {
+	// }
+
 
 }
 
@@ -66,6 +91,24 @@ console.log(cards)
 let card_expanded = false
 
 function expandCard(card) {
+	if (card.classList.contains('expanded')) {
+		card.removeAttribute('style')
+	}
 	card.classList.toggle('expanded')
 	card.querySelector('.card-control').classList.toggle('expanded')
+
+	if (card.classList.contains('expanded')) {
+		console.log("sts")
+		setTimeout(() => {
+			console.log("adjusting max-height to " + card.offsetHeight + "px")
+			let compStyles = window.getComputedStyle(card)
+			console.log("current max-height is " + compStyles.getPropertyValue('max-height'))
+
+			card.style.maxHeight = card.offsetHeight + "px"
+
+			let compStyles2 = window.getComputedStyle(card)
+			console.log("updated max-height is " + card.style.maxHeight)
+		}, 800)
+
+	} 
 }
