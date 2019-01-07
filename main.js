@@ -75,14 +75,15 @@ server.route({
     path: '/',
     handler: async (request, h) => {
     	const location = request.location
-    	
+    		
+    	console.log("NODE_ENV = " + process.env.NODE_ENV)
     	if (process.env.NODE_ENV === 'development') {
 			location.postal = 45459
 		} 
 		if (process.env.NODE_ENV === 'production') {
 			console.log("Location")
 	    	console.log(location)
-	    	if (location.postal === "`zipCode` not provided.") {
+	    	if (!location.postal) {
 	    		location.postal = 45459
 	    	}
 		}
