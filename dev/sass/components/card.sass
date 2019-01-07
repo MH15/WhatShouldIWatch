@@ -5,57 +5,97 @@
 	height: $card-height
 	background: $card-background
 
-	display: flex
+	// display: flex
 	max-width: 100%
+	width: 70vw
+	transition: 300ms ease all
+	overflow: hidden
+	
+	.main
+		width: 100%
+		display: flex
+		.image
+			padding: $card-padding
+			padding-right: $card-padding
+			img
+				height: $card-height - $card-padding * 2
+				border-radius: 4px
+		.text
+			padding: $card-padding
+			padding-left: 0
+			flex: 1
 
-	.image
+			.top
+				display: flex
+				justify-content: space-between
+
+				.card-control
+					transform: rotate(45deg)
+					color: darken($title-color, 25%)
+					cursor: pointer
+					// background: url('/public/img/close.svg')
+					width: 12px
+					height: 12px
+					// background-size: cover
+					// background-position: center center
+					transition: 200ms ease all
+				.card-control.expanded
+					transform: rotate(0deg)
+
+			h2
+				padding: 0
+				margin: 0
+				color: $card-title-color
+				// white-space: nowrap
+				// overflow: ellipses
+				// max-width: 89%
+				cursor: pointer
+
+			a.score
+				padding-top: $card-padding
+				color: $card-score-color
+				display: flex
+				justify-content: flex-start
+				align-items: center
+				text-decoration: none
+				width: 200px
+
+				&:hover
+					text-decoration: underline
+
+			img.imdb
+				height: 15px
+				margin-right: 3px
+
+			p.info
+				color: lighten($card-info-color, 10%)
+	.more
+		width: 100%
+		color: lighten($card-info-color, 10%)
 		padding: $card-padding
-		padding-right: $card-padding
-		img
-			height: $card-height - $card-padding * 2
-			border-radius: 4px
-	.text
-		padding: $card-padding
-		padding-left: 0
+
+		display: block
+		.fact
+			padding-bottom: 10px
+			color: lighten($card-info-color, 10%) !important
+		// display: flex
+
+.card.expanded
+	height: 50vh
+	// position: fixed
+	top: 20vh
 
 
-		h2
-			padding: 0
-			margin: 0
-			color: $card-title-color
-			// white-space: nowrap
-			// overflow: ellipses
-			max-width: 89%
-			cursor: pointer
-
-		a.score
-			padding-top: $card-padding
-			color: $card-score-color
-			display: flex
-			justify-content: flex-start
-			align-items: center
-			text-decoration: none
-			width: 100px
-
-			&:hover
-				text-decoration: underline
-
-		img.imdb
-			height: 15px
-			margin-right: 3px
-
-		p.info
-			color: $card-info-color
 
 
 // ui popups
 .popup
 	z-index: 1000
 	margin-bottom: $card-border-radius * 2
-	height: $popup-height
+	height: auto
 	background: lighten($card-background, 0%)
 	border-radius: $card-border-radius
-	padding: $card-padding
+	padding: 2vh
 
 	width: 70vw
 	margin: 0 auto
@@ -73,6 +113,11 @@
 		cursor: pointer
 
 	p
-		color: $card-info-color
+		color: lighten($card-info-color, 10%)
 
+	li,a
+		color: #667da8
+		line-height: 1.5
+	a:visited
+		color: #667da8
 

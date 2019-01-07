@@ -1,30 +1,38 @@
-<div class="card">
-	<div class="image">
-		<img src="<%=film.Poster%>">
-	</div>
-	<div class="text">
-		<h2><%=film.Title%></h2>
-			
-		<a class="score" href="https://www.imdb.com/title/<%=film.IMDB_ID%>">
-			<img class="imdb" src="/public/img/imdb.svg">
-			<div><%-String(film.IMDB_rating)%>/10</div>
-		</a>
-		<p class="info"><%=film.Plot%></p>
-		<div>
+<div class="card expanded" film-title="<%=film.Title%>">
+	<div class="main">
+		<div class="image">
+			<img src="<%=film.Poster%>">
+		</div>
+		<div class="text">
+			<div class="top">
+				<h2><%=film.Title%></h2>
+				<!-- <div class="card-control"></div> -->
+				<img class="card-control" src="/public/img/close.svg">
+			</div>
+				
+			<a class="score" href="https://www.imdb.com/title/<%=film.IMDB_ID%>">
+				<img class="imdb" src="/public/img/imdb.svg">
+				<div><%-String(film.IMDB_rating)%>/10 | <%=film.IMDB_votes%> votes</div>
+			</a>
+			<p class="info"><%=film.Plot%></p>
+			<div>
+			</div>
 		</div>
 	</div>
-<!-- 	<div class="score">
-		<div>
-			<p class="label">IMDB Rating</p>
-			<p><%-String(film.IMDB_rating)%>/10</p>
+	<div class="more">
+		<div class="fact">
+			<b>Writer:</b> <%=film.Writer%>
 		</div>
-		<div>
-			<p class="label">IMDB Votes</p>
-			<p><%-String(film.IMDB_votes)%></p>
+		<div class="fact">
+			<b>Actors:</b> <%=film.Actors%>
 		</div>
-		<div>
-			<p class="label">Metacritic</p>
-			<p><%-String(film.Metacritic)%>%</p>
+		<div class="fact">
+			<b>Runtime:</b> <%=film.Runtime%>
 		</div>
-	</div> -->
+		<div class="fact">
+			<b>Released:</b> <%=film.Released%>
+		</div>
+		<a class="fact" href="<%=film.Fandango_URL%>">Fandango URL</a>
+		<a class="fact" href="<%=film.Production_URL%>">Production URL</a>
+	</div>
 </div>

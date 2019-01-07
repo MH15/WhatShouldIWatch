@@ -157,46 +157,75 @@ body {
   border-radius: 10px;
   height: 200px;
   background: #1F2745;
-  display: flex;
-  max-width: 100%; }
-  .card .image {
+  max-width: 100%;
+  width: 70vw;
+  transition: 300ms ease all;
+  overflow: hidden; }
+  .card .main {
+    width: 100%;
+    display: flex; }
+    .card .main .image {
+      padding: 10px;
+      padding-right: 10px; }
+      .card .main .image img {
+        height: 180px;
+        border-radius: 4px; }
+    .card .main .text {
+      padding: 10px;
+      padding-left: 0;
+      flex: 1; }
+      .card .main .text .top {
+        display: flex;
+        justify-content: space-between; }
+        .card .main .text .top .card-control {
+          transform: rotate(45deg);
+          color: #8691af;
+          cursor: pointer;
+          width: 12px;
+          height: 12px;
+          transition: 200ms ease all; }
+        .card .main .text .top .card-control.expanded {
+          transform: rotate(0deg); }
+      .card .main .text h2 {
+        padding: 0;
+        margin: 0;
+        color: #D3D7E2;
+        cursor: pointer; }
+      .card .main .text a.score {
+        padding-top: 10px;
+        color: #F9D448;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        text-decoration: none;
+        width: 200px; }
+        .card .main .text a.score:hover {
+          text-decoration: underline; }
+      .card .main .text img.imdb {
+        height: 15px;
+        margin-right: 3px; }
+      .card .main .text p.info {
+        color: #667da8; }
+  .card .more {
+    width: 100%;
+    color: #667da8;
     padding: 10px;
-    padding-right: 10px; }
-    .card .image img {
-      height: 180px;
-      border-radius: 4px; }
-  .card .text {
-    padding: 10px;
-    padding-left: 0; }
-    .card .text h2 {
-      padding: 0;
-      margin: 0;
-      color: #D3D7E2;
-      max-width: 89%;
-      cursor: pointer; }
-    .card .text a.score {
-      padding-top: 10px;
-      color: #F9D448;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      text-decoration: none;
-      width: 100px; }
-      .card .text a.score:hover {
-        text-decoration: underline; }
-    .card .text img.imdb {
-      height: 15px;
-      margin-right: 3px; }
-    .card .text p.info {
-      color: #4f648c; }
+    display: block; }
+    .card .more .fact {
+      padding-bottom: 10px;
+      color: #667da8 !important; }
+
+.card.expanded {
+  height: 50vh;
+  top: 20vh; }
 
 .popup {
   z-index: 1000;
   margin-bottom: 20px;
-  height: 80vh;
+  height: auto;
   background: #1f2745;
   border-radius: 10px;
-  padding: 10px;
+  padding: 2vh;
   width: 70vw;
   margin: 0 auto;
   max-width: 100%; }
@@ -207,7 +236,12 @@ body {
     max-width: 89%;
     cursor: pointer; }
   .popup p {
-    color: #4f648c; }
+    color: #667da8; }
+  .popup li, .popup a {
+    color: #667da8;
+    line-height: 1.5; }
+  .popup a:visited {
+    color: #667da8; }
 
 div.container {
   width: 70vw;
@@ -235,7 +269,8 @@ header {
     margin: 0;
     line-height: 7vh;
     text-decoration: none;
-    cursor: pointer; }
+    cursor: pointer;
+    font-weight: bold; }
   header h3.menu:hover {
     text-decoration: underline; }
 
@@ -266,5 +301,5 @@ div.popups {
     opacity: 0; }
 
 @media only screen and (orientation: portrait) {
-  div.container {
+  div.container, .card, .popup {
     width: 95vw; } }

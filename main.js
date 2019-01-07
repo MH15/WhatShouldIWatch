@@ -88,7 +88,9 @@ server.route({
 		}
 
     	// TODO: error handle location data
-    	const films = await FindangoData(location.postal)
+    	const findango = await FindangoData(location.postal)
+    	const films = findango.films
+    	const theater = findango.theater
     	const scored = await Score(films)
 
     	// move "N/A" ratings to the end of the list
@@ -119,7 +121,8 @@ function FindangoData(postal) {
 	return new Promise(resolve => {
 		Findango.find({
 		  zipCode: postal
-		}).then(theatres => {
+		}).then(theaters => {
+			// console.log(theaters)
 		  // Theatres have the format:
 		  // {
 		  //  name: '…',              // Name of theatre
@@ -129,7 +132,13 @@ function FindangoData(postal) {
 		  //    url: '…'              // Fandango URL for showtimes
 		  //  }]
 		  // }
-		  resolve(theatres[0].films)
+		  resolve({
+		  	films: theaters[0].films,
+		  	theater: {
+		  		name: theaters[0].name,
+		  		location: theaters[0].location
+		  	}
+		  })
 		});
 	});
 }
@@ -148,19 +157,28 @@ async function Score(films) {
 	let out = []
 
 	const promises = films.map(async (film) => {
-		let omdb_data = await GetOMDB(film.title)
-		// console.log(omdb_data.Title)
+		let data = await GetOMDB(film.title)
+		// console.log(data)
 		// console.log(omdb_data.imdbRating)
-		if (omdb_data.Title) {
+		if (data.Title) {
 			let obj = {
 				Title: film.title,
-				IMDB_rating: omdb_data.imdbRating,
-				IMDB_votes: omdb_data.imdbVotes,
-				Metacritic: omdb_data.Metascore,
-				IMDB_ID: omdb_data.imdbID,
+				Fandango_URL: film.url,
+				Film_URL: data.website,
+				IMDB_rating: data.imdbRating,
+				IMDB_votes: data.imdbVotes,
+				Metacritic: data.Metascore,
+				IMDB_ID: data.imdbID,
 
-				Poster: omdb_data.Poster,
-				Plot: omdb_data.Plot
+				Poster: data.Poster,
+				Plot: data.Plot,
+
+
+				Actors: data.Actors,
+				Writer: data.Writer,
+				Released: data.Released,
+				Runtime: data.Runtime,
+
 			}
 			// console.log(obj)
 			out.push(obj)
@@ -179,6 +197,7 @@ async function Score(films) {
 function GetOMDB(title) {
 	return new Promise((resolve, reject) => {
 		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, function (error, response, body) {
+			// TODO: error handling!
 			resolve(JSON.parse(body))
 		});
 	})

@@ -32,7 +32,6 @@ els.forEach(el => {
 	}
 })
 
-dom.ABOUT.enabled = true
 
 console.log(dom)
 
@@ -42,4 +41,31 @@ function ToggleAboutMenu() {
 	dom.CLOSE_ABOUT.classList.toggle("disabled")
 	dom.ABOUT.classList.toggle("disabled")
 
+}
+
+
+let cards_dom = document.querySelectorAll('.card')
+console.log(cards_dom)
+
+let cards = []
+
+cards_dom.forEach(card => {
+	let name = card.getAttribute('film-title')
+	card.querySelector('.top').addEventListener('click', () => {
+		expandCard(card)
+	})
+	cards.push({
+		dom: card,
+		title: name
+	})
+})
+
+
+console.log(cards)
+
+let card_expanded = false
+
+function expandCard(card) {
+	card.classList.toggle('expanded')
+	card.querySelector('.card-control').classList.toggle('expanded')
 }
