@@ -199,7 +199,7 @@ function GetOMDB(title) {
 	return new Promise((resolve, reject) => {
 		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, function (error, response, body) {
 			// TODO: error handling!
-			console.log(JSON.parse(body))
+			console.log("TITLE: " + title)
 			resolve(JSON.parse(body))
 		});
 	})
