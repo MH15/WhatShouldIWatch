@@ -53,28 +53,44 @@ process.on('unhandledRejection', (err) => {
 
 init()
 
+
+
+
 // Main Page route
 server.route({
     method: 'GET',
     path: '/',
     handler: async (request, h) => {
-    	const ip = request.info.remoteAddress
+    	const ip = request.headers['x-forwarded-for']
     	console.log("ip: " + ip)
-    	console.log(request)
-		let geo = geoip.lookup(request.headers['x-forwarded-for'])
-		console.log(geo)
-		// Create a default zipcode if the
-		// IP adress code isn't working
-        let zipcode
-        if (geo != null) {
-        	if (geo.zip) {
-        		zipcode = geo.zip
-        	} else {
-        		zipcode = 45459
-        	}
-        } else {
-        	zipcode = 45459
-        }
+    	// console.log(request)
+		// let geo = geoip.lookup("140.254.77.153")
+		// console.log(geo)
+		// // Create a default zipcode if the
+		// // IP adress code isn't working
+  //       let zipcode
+  //       if (geo != null) {
+  //   		console.log("y")
+  //       	if (geo.zip) {
+  //       		console.log("ye")
+  //       		zipcode = geo.zip
+  //       	} else {
+  //       		zipcode = 45459
+  //       	}
+  //       } else {
+  //       		console.log("ne")
+  //       	zipcode = 45459
+  //       }
+  		let zipcode
+  		if (ip) {
+  			zipcode = await GetLocation(zipcode)
+  		} else {
+  			zipcode = 45459
+  		}
+
+
+        // let zipcode = await GetLocation(ip)
+        console.log(zipcode)
 
     	const findango = await FindangoData(zipcode)
     	const films = findango.films
@@ -104,6 +120,37 @@ server.route({
         })
     }
 })
+
+// Get-request the zipcode from IP address
+// API Key: bb10944df1dc6f784f1da6575a88132b
+function GetLocation(title) {
+	return new Promise((resolve, reject) => {
+		request(`http://api.ipstack.com/${ip}?access_key=bb10944df1dc6f784f1da6575a88132b`, (error, response, body) => {
+			// TODO: error handling!
+			// console.log("TITLE: " + title)
+			resolve(JSON.parse(body).zip)
+		})
+	})
+}
+
+
+
+// Get-request the data from OMDB's servers
+// OMDb API Key: 1945957c
+function GetOMDB(title) {
+	return new Promise((resolve, reject) => {
+		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, (error, response, body) => {
+			// console.log(response)
+			// TODO: error handling!
+			let json = null
+			if (IsJsonString(body)) {
+				resolve(JSON.parse(body))
+			} else {
+				reject('invalid json format')
+			}
+		})
+	})
+}
 
 
 // Gather a list of films playing in the area
@@ -170,22 +217,7 @@ async function Score(films) {
 
 }
 
-// Get-request the data from OMDB's servers
-// OMDb API Key: 1945957c
-function GetOMDB(title) {
-	return new Promise((resolve, reject) => {
-		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, (error, response, body) => {
-			// TODO: error handling!
-			// console.log("TITLE: " + title)
-			let json = null
-			if (IsJsonString(body)) {
-				resolve(JSON.parse(body))
-			} else {
-				reject('invalid json format')
-			}
-		})
-	})
-}
+
 
 function IsJsonString(str) {
     try {
