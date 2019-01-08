@@ -81,16 +81,18 @@ server.route({
   //       		console.log("ne")
   //       	zipcode = 45459
   //       }
-  		let zipcode
+  		let zipcode = 43210
   		if (ip) {
+  			console.log("we have ip")
   			zipcode = await GetLocation(zipcode)
   		} else {
+  			console.log("no ip")
   			zipcode = 45459
   		}
 
 
         // let zipcode = await GetLocation(ip)
-        console.log(zipcode)
+        console.log("z: " + zipcode)
 
     	const findango = await FindangoData(zipcode)
     	const films = findango.films
