@@ -59,7 +59,9 @@ server.route({
     path: '/',
     handler: async (request, h) => {
     	const ip = request.info.remoteAddress
+    	console.log("ip: " + ip)
 		let geo = geoip.lookup(ip)
+		console.log(geo)
 		// Create a default zipcode if the
 		// IP adress code isn't working
         let zipcode
