@@ -60,6 +60,7 @@ server.route({
     handler: async (request, h) => {
     	const ip = request.info.remoteAddress
     	console.log("ip: " + ip)
+    	console.log(request)
 		let geo = geoip.lookup("140.254.77.153")
 		console.log(geo)
 		// Create a default zipcode if the
