@@ -123,7 +123,7 @@ server.route({
 
 // Get-request the zipcode from IP address
 // API Key: bb10944df1dc6f784f1da6575a88132b
-function GetLocation(title) {
+function GetLocation(ip) {
 	return new Promise((resolve, reject) => {
 		request(`http://api.ipstack.com/${ip}?access_key=bb10944df1dc6f784f1da6575a88132b`, (error, response, body) => {
 			// TODO: error handling!
