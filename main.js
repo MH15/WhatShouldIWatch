@@ -14,8 +14,10 @@ const server = Hapi.server({
 const init = async () => {
 
 	await server.register([
-		require('inert'),
-		require('Vision')
+		require('inert')
+	])
+	await server.register([
+		require('vision')
 	])
 
 	server.views({
