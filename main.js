@@ -19,6 +19,9 @@ const init = async () => {
 	await server.register([
 		require('vision')
 	])
+	await server.register({
+	    plugin: require('hapi-geo-locate')
+	})
 
 	server.views({
         engines: { ejs: Ejs },
@@ -63,6 +66,8 @@ server.route({
     handler: async (request, h) => {
     	const ip = request.headers['x-forwarded-for']
     	console.log("ip: " + ip)
+
+
     	// console.log(request)
 		// let geo = geoip.lookup("140.254.77.153")
 		// console.log(geo)
@@ -82,13 +87,21 @@ server.route({
   //       	zipcode = 45459
   //       }
   		let zipcode = 43210
-  		if (ip) {
-  			console.log("we have ip")
-  			zipcode = await GetLocation(zipcode)
-  		} else {
-  			console.log("no ip")
-  			zipcode = 45459
-  		}
+  		// if (ip) {
+  		// 	console.log("we have ip")
+  		// 	zipcode = await GetLocation(zipcode)
+  		// } else {
+  		// 	console.log("no ip")
+  		// 	zipcode = 45459
+  		// }
+
+
+    	const location = request.location
+    	if (location) {
+    		console.log("yeet")
+    		console.log(location)
+    		zipcode = location.zip
+    	}
 
 
         // let zipcode = await GetLocation(ip)
