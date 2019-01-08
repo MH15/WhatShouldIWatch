@@ -11,6 +11,22 @@ div.container
 	margin: 0 auto
 	transition: width 200ms ease
 
+	p
+		color: lighten($card-info-color, 10%)
+
+		&.theater
+			margin-top: 0
+			margin-bottom: 3vh
+
+		&.bottom
+			text-align: center
+
+	a
+		color: #667da8
+		line-height: 1.5
+	a:visited
+		color: #667da8
+
 body
 	background: $background
 
@@ -19,8 +35,8 @@ h1
 
 header
 	display: flex
-	margin-bottom: 3vh
-	margin-top: 4vh
+	margin-bottom: 1vh
+	margin-top: 2.5vh
 	justify-content: space-between
 
 	h1
@@ -55,7 +71,7 @@ div.popups
 	margin: 0 auto
 	align-items: center
 	z-index: 100
-	transition: 500ms ease all
+	transition: 300ms ease all
 
 	&.disabled
 		// display: none
@@ -72,7 +88,7 @@ div.popups
 	width: 100%
 	height: 100%
 	background: rgba(0, 0, 0, 0.75)
-	transition: 500ms ease all
+	transition: 300ms ease all
 
 	&.disabled
 		// display: none
@@ -84,3 +100,5 @@ div.popups
 	div.container, .card, .popup
 		width: 95vw
 		// transition: width 1200ms ease
+
+

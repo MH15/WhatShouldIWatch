@@ -60,16 +60,6 @@ server.route({
     handler: async (request, h) => {
     	const ip = request.info.remoteAddress
 		let geo = geoip.lookup(ip)
-		console.log("IP: " + ip)
-		console.log(geo)
-		// { range: [ 3479297920, 3479301339 ],
-		//   country: 'US',
-		//   region: 'TX',
-		//   city: 'San Antonio',
-		//   ll: [ 29.4889, -98.3987 ],
-		//   metro: 641,
-		//   zip: 78218 }
-
 		// Create a default zipcode if the
 		// IP adress code isn't working
         let zipcode
@@ -80,7 +70,6 @@ server.route({
         		zipcode = 45459
         	}
         } else {
-        	console.log("zip null.")
         	zipcode = 45459
         }
 
@@ -107,7 +96,8 @@ server.route({
         return h.view('main', {
         	title: "What Should I Watch?",
         	rated: rated,
-        	unrated: unrated
+        	unrated: unrated,
+        	theater: theater
         })
     }
 })
@@ -119,15 +109,6 @@ function FindangoData(postal) {
 		Findango.find({
 			zipCode: postal
 		}).then(theaters => {
-		  // Theatres have the format:
-		  // {
-		  //  name: '…',              // Name of theatre
-		  //  location: '…',          // Theatre address
-		  //  films: [{
-		  //    title: "Movie Title"  // Title of film
-		  //    url: '…'              // Fandango URL for showtimes
-		  //  }]
-		  // }
 		  resolve({
 		  	films: theaters[0].films,
 		  	theater: {
@@ -139,7 +120,6 @@ function FindangoData(postal) {
 	})
 }
 
-
 async function processArray(array) {
 	// map array to promises
 	const promises = array.map(delayedLog)
@@ -147,8 +127,6 @@ async function processArray(array) {
 	await Promise.all(promises)
 }
 
-// Create object including IMBD score
-// omdb key: 1945957c
 async function Score(films) {
 	let out = []
 
@@ -190,6 +168,7 @@ async function Score(films) {
 }
 
 // Get-request the data from OMDB's servers
+// OMDb API Key: 1945957c
 function GetOMDB(title) {
 	return new Promise((resolve, reject) => {
 		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, (error, response, body) => {

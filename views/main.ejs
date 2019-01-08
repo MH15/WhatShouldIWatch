@@ -17,9 +17,12 @@
 			<div id="OPEN_ABOUT">about</div>
 		</h3>
 		</header>
+		<p class="theater">Your theater is the <a href="https://www.google.com/maps/place/<%=theater.location%>"><%=theater.name%></a>.</p>
 		<% rated.forEach((film) => { %>
 	    	<%- include('card', {film: film}); %>
 	  	<% }); %>
+
+	  	<p class="bottom">If you scrolled this far, go check out the other projects by <a href="https://matthall.ml">Matt Hall</a></p>
 
 
 	</div>
