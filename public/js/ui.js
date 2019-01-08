@@ -55,7 +55,7 @@ function ToggleAboutMenu() {
 		setTimeout(() => {
 			dom.CLOSE_ABOUT.style.display = "none"
 			dom.ABOUT.style.display = "none"
-		}, 1000)
+		}, 500)
 	}
 
 	// // when press, close menu

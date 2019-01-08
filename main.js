@@ -5,6 +5,9 @@ const Findango = require('findango-api')
 const request = require('request')
 const Vision = require('vision')
 const Ejs = require('ejs')
+const geoip = require('geoip-lite');
+
+console.log(geoip)
 
 const server = Hapi.server({
     port: process.env.PORT || 3000
@@ -32,6 +35,9 @@ const init = async () => {
 	await server.register({
 	    plugin: require('hapi-geo-locate')
 	})
+	// await server.register({
+	//     plugin: require('hapi-ip-location')
+	// })
 	await server.register(Vision);
 
 	await server.register([
@@ -74,22 +80,44 @@ server.route({
     method: 'GET',
     path: '/',
     handler: async (request, h) => {
-    	const location = request.location
+    	// const location = request.location
+
+    	const ip = request.info.remoteAddress
+
+    	console.log(ip)
+
+		var ipa = "207.97.227.239";
+
+		let geo = geoip.lookup(ipa);
+		 
+		console.log(geo)
+		// { range: [ 3479297920, 3479301339 ],
+		//   country: 'US',
+		//   region: 'TX',
+		//   city: 'San Antonio',
+		//   ll: [ 29.4889, -98.3987 ],
+		//   metro: 641,
+		//   zip: 78218 }
+    	// let geo = request.geo
+
+        let zipcode
+
+        if (geo.zip) {
+        	zipcode = geo.zip
+        } else {
+        	zipcode = 45459
+        }
     		
-    	console.log("NODE_ENV = " + process.env.NODE_ENV)
-    	if (process.env.NODE_ENV === 'development') {
-			location.postal = 45459
-		} 
-		if (process.env.NODE_ENV === 'production') {
-			console.log("Location")
-	    	console.log(location)
-	    	if (!location.postal) {
-	    		location.postal = 45459
-	    	}
+
+		let location = {
+			postal: 43210
 		}
 
+		console.log(zipcode)
+
+
     	// TODO: error handle location data
-    	const findango = await FindangoData(location.postal)
+    	const findango = await FindangoData(zipcode)
     	const films = findango.films
     	const theater = findango.theater
     	const scored = await Score(films)
@@ -205,7 +233,7 @@ function GetOMDB(title) {
 	return new Promise((resolve, reject) => {
 		request(`http://www.omdbapi.com/?t=${title}&apikey=1945957c`, function (error, response, body) {
 			// TODO: error handling!
-			console.log("TITLE: " + title)
+			// console.log("TITLE: " + title)
 			let json = null
 			if (IsJsonString(body)) {
 				resolve(JSON.parse(body))
