@@ -130,6 +130,7 @@ function GetLocation(ip) {
 		request(`http://api.ipstack.com/${ip}?access_key=bb10944df1dc6f784f1da6575a88132b`, (error, response, body) => {
 			// TODO: error handling!
 			// console.log("TITLE: " + title)
+			console.log(JSON.parse(body))
 			resolve(JSON.parse(body).zip)
 		})
 	})
