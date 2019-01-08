@@ -58,6 +58,7 @@ server.route({
     handler: async (request, h) => {
     	const ip = request.info.remoteAddress
 		let geo = geoip.lookup(ip)
+		console.log("IP: " + ip)
 		console.log(geo)
 		// { range: [ 3479297920, 3479301339 ],
 		//   country: 'US',
@@ -70,9 +71,14 @@ server.route({
 		// Create a default zipcode if the
 		// IP adress code isn't working
         let zipcode
-        if (geo.zip) {
-        	zipcode = geo.zip
+        if (geo != null) {
+        	if (geo.zip) {
+        		zipcode = geo.zip
+        	} else {
+        		zipcode = 45459
+        	}
         } else {
+        	console.log("zip null.")
         	zipcode = 45459
         }
 
