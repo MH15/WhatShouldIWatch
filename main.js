@@ -100,7 +100,7 @@ server.route({
     	if (location) {
     		console.log("yeet")
     		console.log(location)
-    		zipcode = location.zip
+    		zipcode = location.postal
     	}
 
 
