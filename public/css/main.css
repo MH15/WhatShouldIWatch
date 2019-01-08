@@ -272,13 +272,13 @@ h1 {
 
 header {
   display: flex;
-  margin-bottom: 1vh;
+  margin-bottom: 1.5vh;
   margin-top: 2.5vh;
   justify-content: space-between; }
   header h1 {
     color: #D3D7E2;
     margin: 0;
-    font-size: 6.5vh;
+    font-size: 5.5vh;
     line-height: 7vh; }
   header h3.menu {
     color: #8691af;
